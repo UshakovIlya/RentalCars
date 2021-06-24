@@ -1,0 +1,26 @@
+{
+  "id": "7dd3f3c7-fee0-44c1-bb98-6284f55d8e7b",
+  "name": "Rental_Cars",
+  "publisher": "Default publisher",
+  "version": "1.0.0.0",
+  "brief": "",
+  "description": "",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "1.0.0.0",
+  "application": "18.0.0.0",
+  "idRanges": [
+    {
+      "from": 50100,
+      "to": 50149
+    }
+  ],
+  "contextSensitiveHelpUrl": "https://Rental_Cars.com/help/",
+  "showMyCode": true,
+  "runtime": "7.0"
+}
