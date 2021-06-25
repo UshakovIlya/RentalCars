@@ -1,12 +1,10 @@
-codeunit 50102 UpdateTotalSum
+codeunit 50102 "UpdateTotalSum"
 {
     TableNo = "Rental Sales Line";
 
     trigger OnRun()
     var
-        "Rental Sales Header": Record "Rental Sales Header";
         TotalAmount: Decimal;
-        Disc: Decimal;
         MyDate: Duration;
         Duto: Date;
     begin
