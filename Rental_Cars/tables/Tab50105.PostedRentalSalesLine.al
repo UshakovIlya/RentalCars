@@ -40,7 +40,7 @@ table 50105 "Posted Rental Sales Line"
         {
             Caption = 'Document No.';
             DataClassification = ToBeClassified;
-            TableRelation = "Rental Sales Header";
+            TableRelation = "Posted Rental Sales Header";
         }
         field(6; "GearBox"; Enum GearBox)
         {
@@ -89,10 +89,11 @@ table 50105 "Posted Rental Sales Line"
     }
     keys
     {
-        key(PK; "Line No.")
+        key(PK; "Document No.", "Line No.")
         {
             Clustered = true;
         }
+
     }
 
 }

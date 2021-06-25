@@ -4,10 +4,9 @@ page 50109 "Posted Rental Sales Line"
     Caption = 'Posted Rental Sales Line';
     PageType = ListPart;
     SourceTable = "Posted Rental Sales Line";
-
     AutoSplitKey = true;
     MultipleNewLines = true;
-
+    PopulateAllFields = true;
 
     layout
     {
@@ -29,10 +28,7 @@ page 50109 "Posted Rental Sales Line"
                 {
                     ToolTip = 'Specifies the value of the Item No. field';
                     ApplicationArea = All;
-                    trigger OnValidate()
-                    begin
-                        CurrPage.Update(true);
-                    end;
+
                 }
                 field("Item Desc."; Rec."Item name.")
                 {
