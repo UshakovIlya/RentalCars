@@ -15,17 +15,9 @@ codeunit 50101 "OrderValidation"
         repeat
             if "Rental Sales Line"."Driving License Needed" <> "Rental Sales Header"."Customer Driving License" then begin
                 Message('Be sure your license matches all needed');
+                exit;
+            end;
 
-                exit;
-            end;
-            if ("Rental Sales Line"."Rental End" - "Rental Sales line"."Rental Start") < 1 then begin
-                Message('Must be at least 1 day rented');
-                exit;
-            end;
-            if "Rental Sales Line"."Car available" = false then begin
-                Message('Car is not available right now');
-                exit;
-            end;
         until "Rental Sales Line".Next() = 0;
         "Post Order".Run("Rec");
     end;

@@ -61,7 +61,9 @@ table 50104 "Posted Rental Sales Header"
         field(11; "Contract Total sum"; Decimal)
         {
             Caption = 'Contract Total sum';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            Editable = false;
+            CalcFormula = sum("Posted Rental Sales Line"."Total Item Cost" where("Document No." = field("Document No.")));
         }
 
 
@@ -93,6 +95,7 @@ table 50104 "Posted Rental Sales Header"
     begin
         "Posted Rental Sales Line".SetRange("Document No.", rec."Document No.");
         "Posted Rental Sales Line".DeleteAll(true);
+
     end;
 
     procedure InitInsert()

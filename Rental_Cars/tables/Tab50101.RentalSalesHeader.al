@@ -61,7 +61,9 @@ table 50101 "Rental Sales Header"
         field(11; "Contract Total sum"; Decimal)
         {
             Caption = 'Contract Total sum';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            Editable = false;
+            CalcFormula = sum("Rental Sales Line"."Total Item Cost" where("Document No." = field("Document No.")));
         }
 
         field(13; "No. Series"; Code[20])
@@ -79,6 +81,7 @@ table 50101 "Rental Sales Header"
         {
             Clustered = true;
         }
+
     }
 
 

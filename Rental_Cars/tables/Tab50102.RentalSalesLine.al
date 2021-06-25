@@ -15,6 +15,7 @@ table 50102 "Rental Sales Line"
             Caption = 'Item No.';
             DataClassification = ToBeClassified;
             TableRelation = Item."No." where(Type = filter(car | bike | track));
+
         }
         field(3; "Item name."; Text[100])
         {
@@ -88,12 +89,15 @@ table 50102 "Rental Sales Line"
         }
 
     }
+
+
     keys
     {
-        key(PK; "Line No.")
+        key(PK; "Document No.", "Line No.")
         {
             Clustered = true;
         }
+
     }
 
 }
