@@ -8,7 +8,7 @@ page 50106 "Cars List"
     UsageCategory = Lists;
     CardPageId = "Cars";
     Editable = false;
-    SourceTableView = where(Type = filter(Bike | Car | Track));
+    SourceTableView = where("Is a car" = filter(true));
     layout
     {
         area(content)
@@ -57,7 +57,7 @@ page 50106 "Cars List"
                 }
                 field("Vehicle Discount"; Rec."Vehicle Discount")
                 {
-                    ToolTip = 'Specifies the value of the Amount Of Doors field';
+                    ToolTip = 'Specifies the value of';
                     ApplicationArea = All;
                 }
 

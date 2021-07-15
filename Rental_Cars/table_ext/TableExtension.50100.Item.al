@@ -15,7 +15,7 @@ tableextension 50100 "Car Item" extends Item
 
         field(50105; "Vehicle Discount"; Decimal)
         {
-            Caption = 'Amount Of Doors';
+            Caption = 'Vehicle Discount';
             DataClassification = CustomerContent;
         }
         field(50103; GearBox; Enum GearBox)
@@ -28,6 +28,11 @@ tableextension 50100 "Car Item" extends Item
             Caption = 'Driving License Needed';
             DataClassification = CustomerContent;
         }
+        field(50106; "Is a car"; Boolean)
+        {
+            Caption = 'Is a car';
+            DataClassification = CustomerContent;
 
+        }
     }
 }

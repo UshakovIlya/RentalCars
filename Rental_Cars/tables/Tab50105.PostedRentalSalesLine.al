@@ -14,7 +14,7 @@ table 50105 "Posted Rental Sales Line"
         {
             Caption = 'Item No.';
             DataClassification = ToBeClassified;
-            TableRelation = Item."No." where(Type = filter(car | bike | track));
+            TableRelation = Item."No." where("Is a car" = filter(true));
         }
         field(3; "Item name."; Text[100])
         {

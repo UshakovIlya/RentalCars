@@ -77,31 +77,24 @@ page 50102 "Rental Sales Line"
                     ToolTip = 'Specifies the value of the Item Cost field';
                     ApplicationArea = All;
                     trigger OnValidate()
-                    var
-                        UpdateTotalSum: Codeunit UpdateTotalSum;
-                        Change_car_available: Codeunit Change_car_available;
                     begin
-                        UpdateTotalSum.Run(Rec);
-                        Change_car_available.Run(Rec);
                         CurrPage.Update(true);
                     end;
+
+
                 }
                 field("Rental End"; Rec."Rental End")
                 {
                     ToolTip = 'Specifies the value of the Item Cost field';
                     ApplicationArea = All;
                     trigger OnValidate()
-                    var
-                        UpdateTotalSum: Codeunit UpdateTotalSum;
-                        Change_car_available: Codeunit Change_car_available;
                     begin
-                        UpdateTotalSum.Run(Rec);
-                        Change_car_available.Run(Rec);
                         CurrPage.Update(true);
                     end;
                 }
             }
         }
     }
+
 
 }
