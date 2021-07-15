@@ -66,6 +66,11 @@ table 50104 "Posted Rental Sales Header"
             CalcFormula = sum("Posted Rental Sales Line"."Total Item Cost" where("Document No." = field("Document No.")));
         }
 
+        field(12; "Customer Discount"; Decimal)
+        {
+            Caption = 'Customer Discount';
+            DataClassification = CustomerContent;
+        }
 
         field(13; "No. Series"; Code[20])
         {

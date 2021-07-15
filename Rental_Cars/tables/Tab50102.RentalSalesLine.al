@@ -14,7 +14,8 @@ table 50102 "Rental Sales Line"
         {
             Caption = 'Item No.';
             DataClassification = ToBeClassified;
-            TableRelation = Item."No." where(Type = filter(car | bike | track));
+            TableRelation = Item where("Is a car" = const(true));
+
 
         }
         field(3; "Item name."; Text[100])
@@ -77,6 +78,16 @@ table 50102 "Rental Sales Line"
         {
             Caption = 'Rental Start';
             DataClassification = ToBeClassified;
+            trigger OnValidate()
+            var
+                RentalSalesLine: Record "Rental Sales Line";
+                RentalSalesHeader: record "Rental Sales Header";
+                PostedRentalSalesLine: Record "Posted Rental Sales Line";
+            begin
+                UpdateTotalSum.TotalSumForOneItem(Rec, RentalSalesHeader);
+                ChangeCarAvailable.CheckIfCarIsBusyInSameOrder(RentalSalesLine, Rec, RentalSalesHeader);
+                ChangeCarAvailable.CheckIfCarIsBusyInPosted(PostedRentalSalesLine, Rec);
+            end;
 
 
         }
@@ -84,6 +95,17 @@ table 50102 "Rental Sales Line"
         {
             Caption = 'Rental End';
             DataClassification = ToBeClassified;
+            trigger OnValidate()
+            var
+                RentalSalesLine: Record "Rental Sales Line";
+                RentalSalesHeader: record "Rental Sales Header";
+                PostedRentalSalesLine: Record "Posted Rental Sales Line";
+            begin
+                UpdateTotalSum.TotalSumForOneItem(Rec, RentalSalesHeader);
+                ChangeCarAvailable.CheckIfCarIsBusyInSameOrder(RentalSalesLine, Rec, RentalSalesHeader);
+                ChangeCarAvailable.CheckIfCarIsBusyInPosted(PostedRentalSalesLine, Rec);
+
+            end;
 
 
         }
@@ -100,4 +122,13 @@ table 50102 "Rental Sales Line"
 
     }
 
+
+    var
+        UpdateTotalSum: Codeunit UpdateTotalSum;
+        ChangeCarAvailable: Codeunit "ChangeCarAvailable";
+
+    trigger OnModify()
+    begin
+        ChangeCarAvailable.CheckIfCustomerATimeTraveller(Rec);
+    end;
 }

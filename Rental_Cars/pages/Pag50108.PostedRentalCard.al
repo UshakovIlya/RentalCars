@@ -54,6 +54,11 @@ page 50108 "Posted  Rental Card"
                     ApplicationArea = All;
                 }
 
+                field("Customer Discount"; Rec."Customer Discount")
+                {
+                    ToolTip = 'Specifies the value of the Salesperson Name field';
+                    ApplicationArea = All;
+                }
 
                 field("Contract Total sum"; Rec."Contract Total sum")
                 {

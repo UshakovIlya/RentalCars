@@ -7,36 +7,38 @@ codeunit 50100 "Post Order"
         CopyOrderToPosted(Rec);
     end;
 
-    local procedure CopyOrderToPosted("Rental Sales Header": Record "Rental Sales Header")
+    local procedure CopyOrderToPosted(RentalSalesHeader: Record "Rental Sales Header")
     var
-        "Posted Rental Sales Header": Record "Posted Rental Sales Header";
+        PostedRentalSalesHeader: Record "Posted Rental Sales Header";
         PostDocNo: Code[20];
     begin
-        "Posted Rental Sales Header"."Document No." := '';
-        "Posted Rental Sales Header".Insert(true);
-        PostDocNo := "Posted Rental Sales Header"."Document No.";
-        "Posted Rental Sales Header".TransferFields("Rental Sales Header");
-        "Posted Rental Sales Header"."Document No." := PostDocNo;
-        "Posted Rental Sales Header".Modify(true);
-        CopyOrderLineToPosted("Rental Sales Header", PostDocNo);
-        "Rental Sales Header".Delete(true);
+        PostedRentalSalesHeader."Document No." := '';
+        PostedRentalSalesHeader.Insert(true);
+        PostDocNo := PostedRentalSalesHeader."Document No.";
+        PostedRentalSalesHeader.TransferFields(RentalSalesHeader);
+        PostedRentalSalesHeader."Document No." := PostDocNo;
+        PostedRentalSalesHeader.Modify(true);
+        CopyOrderLineToPosted(RentalSalesHeader, PostDocNo);
+        RentalSalesHeader.Delete(true);
+
     end;
 
-    local procedure CopyOrderLineToPosted("Rental Sales Header": Record "Rental Sales Header"; PostDocNo: Code[20])
+    local procedure CopyOrderLineToPosted(RentalSalesHeader: Record "Rental Sales Header"; PostDocNo: Code[20])
     var
-        "Rental Sales Line": Record "Rental Sales Line";
-        "Posted Rental Sales Line": Record "Posted Rental Sales Line";
+        RentalSalesLine: Record "Rental Sales Line";
+        PostedRentalSalesLine: Record "Posted Rental Sales Line";
     begin
-        "Rental Sales Line".SetRange("Document No.", "Rental Sales Header"."Document No.");
-        if not "Rental Sales Line".FindSet(false, false) then
+        RentalSalesLine.SetRange("Document No.", RentalSalesHeader."Document No.");
+        if not RentalSalesLine.FindSet(false, false) then
             exit;
         repeat
-            "Posted Rental Sales Line"."Document No." := PostDocNo;
-            "Posted Rental Sales Line"."Line No." := "Rental Sales Line"."Line No.";
-            "Posted Rental Sales Line".Insert(true);
-            "Posted Rental Sales Line".TransferFields("Rental Sales Line");
-            "Posted Rental Sales Line"."Document No." := PostDocNo;
-            "Posted Rental Sales Line".Modify(true);
-        until "Rental Sales Line".Next() = 0;
+            PostedRentalSalesLine."Document No." := PostDocNo;
+            PostedRentalSalesLine."Line No." := RentalSalesLine."Line No.";
+            PostedRentalSalesLine.Insert(true);
+            PostedRentalSalesLine.TransferFields(RentalSalesLine);
+            PostedRentalSalesLine."Document No." := PostDocNo;
+            PostedRentalSalesLine.Modify(true);
+        until RentalSalesLine.Next() = 0;
+
     end;
 }

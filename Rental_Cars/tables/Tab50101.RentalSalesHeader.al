@@ -22,6 +22,7 @@ table 50101 "Rental Sales Header"
             Caption = 'Sales Person No.';
             DataClassification = CustomerContent;
             TableRelation = "Salesperson/Purchaser";
+
         }
         field(4; "Contract Date"; Date)
         {
@@ -65,13 +66,25 @@ table 50101 "Rental Sales Header"
             Editable = false;
             CalcFormula = sum("Rental Sales Line"."Total Item Cost" where("Document No." = field("Document No.")));
         }
+        field(12; "Customer Discount"; Decimal)
+        {
+            Caption = 'Customer Discount';
+            DataClassification = CustomerContent;
 
+            trigger OnValidate()
+            var
+                RentalSalesLine: Record "Rental Sales Line";
+            begin
+                UpdateTotalSum.TotalSumForOneItem(RentalSalesLine, Rec);
+            end;
+        }
         field(13; "No. Series"; Code[20])
         {
             Caption = 'No. Series';
             Editable = false;
             TableRelation = "No. Series";
         }
+
 
 
     }
@@ -130,4 +143,5 @@ table 50101 "Rental Sales Header"
     var
         OrderSetup: Record "Order Setup";
         NoSeriesMgt: Codeunit NoSeriesManagement;
+        UpdateTotalSum: Codeunit UpdateTotalSum;
 }

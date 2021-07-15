@@ -59,6 +59,15 @@ page 50101 "Rental Sales"
                     ApplicationArea = All;
                 }
 
+                field("Customer Discount"; Rec."Customer Discount")
+                {
+                    ToolTip = 'Specifies the value of the Salesperson Name field';
+                    ApplicationArea = All;
+                    trigger OnValidate()
+                    begin
+                        CurrPage.Update(true);
+                    end;
+                }
 
                 field("Contract Total sum"; Rec."Contract Total sum")
                 {
@@ -92,10 +101,12 @@ page 50101 "Rental Sales"
 
                 trigger OnAction()
                 var
+                    RentalSalesLine: Record "Rental Sales Line";
                     OrderValidation: Codeunit OrderValidation;
+
                 begin
                     CurrPage.Update(true);
-                    OrderValidation.Run("Rec");
+                    OrderValidation.ValodationOnPosting(RentalSalesLine, Rec);
                     Commit();
                 end;
             }

@@ -61,6 +61,13 @@ page 50105 "Cars"
                     ToolTip = 'Specifies the value of the Amount Of Doors field';
                     ApplicationArea = All;
                 }
+                field("Is a car"; Rec."Is a car")
+                {
+                    ToolTip = 'Specifies the value of the Amount Of Doors field';
+                    ApplicationArea = All;
+                    Visible = false;
+
+                }
 
             }
         }
@@ -115,5 +122,10 @@ page 50105 "Cars"
             }
         }
     }
+
+    trigger OnNewRecord(BelowxRec: Boolean)
+    begin
+        Rec."Is a car" := true;
+    end;
 
 }

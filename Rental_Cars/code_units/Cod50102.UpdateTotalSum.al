@@ -3,19 +3,27 @@ codeunit 50102 "UpdateTotalSum"
     TableNo = "Rental Sales Line";
 
     trigger OnRun()
-    var
-        TotalAmount: Decimal;
-        MyDate: Duration;
-        Duto: Date;
+
     begin
-        if Rec."Rental Start" = Duto then
+
+    end;
+
+    procedure TotalSumForOneItem(var ItemInLine: Record "Rental Sales Line"; RentalSalesHeader: Record "Rental Sales Header")
+    var
+        TheLowestDiscount: Decimal;
+    begin
+        if (ItemInLine."Rental Start" = 0D) or (ItemInLine."Rental End" = 0D) then
             exit;
-        if Rec."Rental End" = Duto then
-            exit;
-        MyDate := (CREATEDATETIME(Rec."Rental End", 0T) - CREATEDATETIME(Rec."Rental Start", 0T));
-        MyDate := MyDate / 1000;
-        TotalAmount := ROUND((MyDate / 86400), 1);
-        Rec.Validate("Total Item Cost", Rec."Item Cost" * TotalAmount);
+        RentalSalesHeader.Get(ItemInLine."Document No.");
+        if ItemInLine."Vehicle Discount" > RentalSalesHeader."Customer Discount" then
+            TheLowestDiscount := ItemInLine."Vehicle Discount"
+        else
+            TheLowestDiscount := RentalSalesHeader."Customer Discount";
+
+        if ((ItemInLine."Item Cost" * (ItemInLine."Rental End" - ItemInLine."Rental Start")) - TheLowestDiscount) > 0 then
+            ItemInLine.Validate("Total Item Cost", (ItemInLine."Item Cost" * (ItemInLine."Rental End" - ItemInLine."Rental Start")) - TheLowestDiscount)
+        else
+            ItemInLine.Validate("Total Item Cost", (ItemInLine."Item Cost" * (ItemInLine."Rental End" - ItemInLine."Rental Start")));
 
     end;
 
